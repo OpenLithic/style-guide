@@ -130,3 +130,12 @@ Build the optional code as a shared binary, and link it dynamically at runtime f
 > *"But some of our developers don't want to have to have **all** of the dependencies installed in order to build."*
 
 Either streamline setting up your build environment, or get better developers. Actually, probably do both.
+
+## Build Systems
+Love CMake or hate it, it's really the only game in town for getting consistent builds that work everywhere.
+
+> *"I hate CMake! Make is good enough for my purposes and isn't nearly as bloated or hacky."*
+
+I generally agree, but have fun writing C++ that doesn't work on Windows. Or worse yet, force your Windows developers to use MinGW and `gcc` instead of `MSVC` as you add more hacky additions and shims to your makefile in order to get your build to work on all of the platforms you need to support.
+
+CMake isn't so bad. I think a lot of people get scared off when they see enormous, convoluted `CMakeLists.txt` files and they try to find answers to their questions and three people are all saying different things. To be honest, this is pretty much entirely CMake's fault. They have no real tutorial or examples, just an automatically generated documentation set which isn't super clear on actual usage. 
