@@ -2,7 +2,7 @@
 
 ### What this document is:
   * Best practices for creating modular and reusable C++ architecture across projects and platforms.
-  * An outline of common C++ design antipatterns and how to avoid them.
+  * An outline of some common C++ design antipatterns and how to avoid them.
   * Rules for consistent C++ style and formatting.
  
 ### What this document is *NOT*:
