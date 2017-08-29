@@ -6,7 +6,7 @@
   * Rules for consistent C++ style and formatting.
  
 ### What this document is *NOT*:
-  * A fully comprehensive guide to using the C++ language well. The [CppCoreGuidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md) already do this better than I ever could. This is meant to be a condensed supplement with a more focused scope, not a replacement for more comprehensive usage guidelines.
+  * A fully comprehensive guide to using the C++ language well. The [CppCoreGuidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md) already do this better than I ever could. This is meant to be a condensed supplement with a more focused scope, not a replacement for more comprehensive usage guidelines. 
   * A criticism of those who choose to do things differently. 
     * These are my opinions, and I understand that not everyone shares them. I would appreciate if you are considering opening an issue or a pull request to tell me that I'm wrong about something, that it be limited to a correction of objective facts and not a disagreement of style or implementation. 
   * A tutorial on how to program in C++; you are assumed to have at least a fundamental working knowledge of the language.
@@ -14,6 +14,8 @@
     
 ## Preface
 This is not a catch-all document. C++ is a complex beast, and certain use cases require bending the rules a bit. However, unless you are writing code for extremely low level systems with very limited resources (in which case you should probably be using C anyway), or you really have to squeeze out every last drop of performance from the CPU for your application, most of this document should hold true. Even in those cases, a lot of it is probably decent advice anyway.
+
+I mentioned the [CppCoreGuidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md) previously. You can consider this document a child of that one. If I don't address something specifically, whatever it says there is probably a good rule of thumb. Some things may be repeated here because I think they are important and worth emphasizing. Others may contradict and override what is written there. If that happens, I will do my best to explain the justification for the discrepancy.
 
 ## General Rules
 1. **Use C++11** - It's supported pretty much everywhere. It is not unreasonable to ask someone to upgrade to a system that supports this version of the standard if they don't have it.
