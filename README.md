@@ -1,7 +1,7 @@
 # Lithic C++ Programming Style and Design Guide
 
 ### What this document is:
-  * Best practices for creating modular C++ architecture.
+  * Best practices for creating modular and reusable C++ architecture across projects and platforms.
   * An outline of common C++ design antipatterns and how to avoid them.
   * Rules for consistent C++ style and formatting.
  
