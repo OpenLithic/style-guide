@@ -6,6 +6,7 @@
   * Rules for consistent C++ style and formatting.
  
 ### What this document is *NOT*:
+  * A fully comprehensive guide to using the C++ language well. The [CppCoreGuidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md) already do this better than I ever could. This is meant to be a condensed supplement with a more focused scope, not a replacement for more comprehensive usage guidelines.
   * A criticism of those who choose to do things differently. 
     * These are my opinions, and I understand that not everyone shares them. I also know that sometimes tensions can run high when people feel like their programming style which is tightly tied with their identity is under fire. All I will say is that I would appreciate if you are considering opening an issue or a pull request to tell me that I'm wrong about something, that it be limited to a correction of objective facts and not of opinions. 
   * A tutorial on how to program in C++; you are assumed to have at least a fundamental working knowledge of the language.
