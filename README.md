@@ -8,7 +8,7 @@
 ### What this document is *NOT*:
   * A fully comprehensive guide to using the C++ language well. The [CppCoreGuidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md) already do this better than I ever could. This is meant to be a condensed supplement with a more focused scope, not a replacement for more comprehensive usage guidelines. 
   * A criticism of those who choose to do things differently. 
-    * These are my opinions, and I understand that not everyone shares them. I would appreciate if you are considering opening an issue or a pull request to tell me that I'm wrong about something, that it be limited to a correction of objective facts and not a disagreement of style or implementation. 
+    * These are my opinions, and I understand that not everyone shares them. However, I would appreciate if you are considering opening an issue or a pull request to tell me that I'm wrong about something, that it be limited to a correction of objective facts and not a disagreement of style or implementation. 
   * A tutorial on how to program in C++; you are assumed to have at least a fundamental working knowledge of the language.
     * *"There will be no hand-holding or silly wand-waving in this class."*
     
