@@ -134,11 +134,80 @@ Build the optional code as a shared binary, and link it dynamically at runtime f
 
 Either streamline setting up your build environment, or get better developers. Actually, probably do both.
 
+## Project Structure
+These are very much suggestions rather than real rules, but having a consistent project structure will make your life easier and make it easier for those unfamiliar with the codebase to find things in your source tree.
+#### Example:
+```
+include
+ - projectName
+   - packageName
+     - PackageClass.h
+   - ProjectClass.h
+src
+ - packageName
+   - PackageClass.cpp
+ - ProjectClass.cpp
+test
+ - include
+   - projectName
+     - TestProjectClass.h
+ - src
+   - TestProjectClass.cpp
+README.md
+LICENSE.md
+```
+#### Notes:
+* Don't clutter up your root project directory with source code.
+  * All source code should be contained in their own directories. The root directory should be for administrative purposes only: `README.md`, `LICENSE.md`, `.gitignore`, etc. These things are not source code and do not belong in the same directory as source code.
+* Headers have a parent directory with the same name as the project name, why?
+  * When other projects link to yours, they will need to include your header files. Including that top level
+    directory makes the includes look like this: 
+    ```cpp
+    #include "projectName/ProjectClass.h"
+    ```
+   * That means that you can name your class something simple without needing to worry about namespace collision. It helps avoid overly long file names like `OrganizationNamespacePackageClass.h`.
+* Each class gets its own header file (and source file if necessary) with the same name as the class. Make your declarations and implementations easy to find.
+  * You may have helper classes within a class that are very small. These don't need to get their own files as long as they are totally encapsulated by the other class, and they stay small. Use your judgement. If they start getting big, consider splitting them out into their own file for readability.
+  * Functions should follow this same rule where possible. I say this because you really shouldn't have huge collections of loose functions. Try to avoid kitchen sinks like `ProjectHelpers.h`. There is probably a better place to put that function so that it is in a context more in line with its usage. More importantly, if you have a huge collection of utility functions that have no specific application to your project, you should consider making that into a separate project and then using it.
+  
+### Stop writing header-only libraries
+Header-only libraries have gotten tremendously popular in modern C++. I suspect this is mostly just due to ease of building. Most header-only libraries say something in their README along the lines of "Just `#include <thisHeaderOnlyLibrary.h>` and you're ready to go".
+
+#### Everything wrong with header-only libraries
+1. Maintenance
+  * Some (not all) of these libraries tend to be gigantic several thousand line header files with little to no distribution of the source tree. This is a nightmare for merging when more than one person works on the project, and it's also just a nightmare for readability.
+    * Some libraries do have a distribution of source files that they pack into a single production header release. That still doesn't help with point 2.
+2. The C pre-processor
+  * When you `#include` something, the C pre-processor copies and pastes the contents of the file in place of the include. That means that wherever this header-only library is used uniquely, its entire several thousand line body is being copied and spliced into the body of your source code. This can slow down your build pretty dramatically depending on how many header-only libraries you use and how big they are.
+3. Separation of concerns
+  * Having your implementation separated from your declaration makes it easier to read and understand the API of your library or application. 
+  
+> *"Yeah... I'm not going to stop writing or using header only libraries. A little slower compilation is nothing compared to the headache of trying to shoehorn someone else's build process into mine."*
+
+I get it. Reusability of code in C++ has historically been a huge problem. Header-only libraries have been a big step forward in reusable, modular code. I understand choosing to use them over the nightmare that has been C++ build systems. I hope to convince you that there is a better way.
+
 ## Build Systems
 Love CMake or hate it, it's really the only game in town for getting consistent builds that work everywhere.
 
-> *"I hate CMake! Make is good enough for my purposes and isn't nearly as bloated or hacky."*
+> *"Make is good enough and isn't nearly as bloated or hacky."*
 
 I generally agree, but have fun writing C++ that doesn't work on Windows. Or worse yet, force your Windows developers to use MinGW and `gcc` instead of `MSVC` as you add more hacky additions and shims to your makefile in order to get your build to work on all of the platforms you need to support.
 
 CMake isn't so bad. I think a lot of people get scared off when they see enormous, convoluted `CMakeLists.txt` files and they try to find answers to their questions and three people are all saying different things. To be honest, this is pretty much entirely CMake's fault. They have no real tutorial or examples, just an automatically generated documentation set which isn't super clear on actual usage. 
+
+### How I learned to stop worrying and love the bomb
+Keep your CMakeLists short and simple.
+
+```cmake
+cmake_required_version(3.1.0)
+
+set(PROJECT_NAME myProject)
+set(CMAKE_CXX_STANDARD 11)
+set(${PROJECT_NAME}_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+project(${PROJECT_NAME})
+file(GLOB LIB_HEADERS "${${PROJECT_NAME}_INCLUDE_DIR}/${PROJECT_NAME}/*.h")
+file(GLOB LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+add_library(${PROJECT_NAME} ${LIB_HEADERS} ${LIB_SOURCES})
+```
+
